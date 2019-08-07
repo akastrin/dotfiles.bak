@@ -4,7 +4,7 @@ This is a guideline for dealing with .dotfiles on my machines.
 
 ## Initial setup
 
-First, we create repositry on GitHub. Next, we clone this repositor:
+First, we create repository on GitHub. Next, we clone this repositor:
 ```
 git clone --bare https://github.com/akastrin/dotfiles.git $HOME/.dotfiles
 ```
@@ -24,4 +24,13 @@ Now we can config files, commit and push. For example:
 dotfiles add .emacs.d/init.el
 dotfiles commit -m "Add init.el file"
 dotfiles push --set-upstream origin master
+```
+
+## Setup on a new computer
+
+We need to clone the repository from GitHub on a new machine:
+```
+git clone --separate-git-dir=$HOME/.dotfiles ttps://github.com/akastrin/dotfiles.git tmpdotfiles
+rsync --recursive --verbose --exclude '.git' tmpdotfiles/ $HOME/
+rm -r tmpdotfiles
 ```
